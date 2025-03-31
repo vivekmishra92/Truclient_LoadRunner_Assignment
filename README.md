@@ -85,18 +85,32 @@ This LoadRunner TruClient-Web (Chromium, 2025.1) script automates searching for 
 - **Implementation**:  
   ```c
   int getRandomArticleIndex(void) {
-      const char* countStr = lr_eval_string("{articleCount}");
-      if (!countStr) { lr_error_message("Failed to retrieve articleCount"); return -1; }
-      int count = atoi(countStr);
-      if (count <= 0) { lr_error_message("Invalid count"); lr_save_string("0", "randomIndex"); return 0; }
-      static int seeded = 0; if (!seeded) { srand((unsigned int)time(NULL)); seeded = 1; }
-      int randomIndex = rand() % count;
-      char result[16]; sprintf(result, "%d", randomIndex);
-      lr_save_string(result, "randomIndex"); lr_output_message("Random index: %s", result);
-      return randomIndex;
-  }
+    const char* countStr;
+    int count;
+    int randomIndex;
+    char result[10];
+
+    // Get article count from parameter
+    countStr = lr_eval_string("{articleCount}");
+    count = atoi(countStr);
+
+    if (count <= 0) {
+        lr_error_message("Invalid article count: %s", countStr);
+        return -1;
+    }
+    // Seed random and generate index
+    srand((unsigned int)time(NULL));
+    randomIndex = rand() % count;
+  
+    // Convert to string and save to LR param
+    sprintf(result, "%d", randomIndex);
+    lr_save_string(result, "randomIndex");
+
+    lr_output_message("Random article index (from C): %s", result);
+    return randomIndex;
+}
+
   ```
-- **Initialization**: Seeded once with `srand` using a `static` flag.
 - **Called From**: Step 28.6 ("Evaluate C" step), using `articleCount` and saving to `randomIndex`.
 
 ### Testing
