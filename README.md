@@ -117,16 +117,6 @@ This LoadRunner TruClient-Web (Chromium, 2025.1) script automates searching for 
 - **"warehouse"**: Retrieves articles, clicks top and random results.
 - **"@!?"**: Step 22 fails but continues (as it’s optional), sets `window.numberOfArticles` to 0, and logs "No articles found for the search term" in the Else block.
 
-### Potential Improvements (If More Time Were Available)
-
-If I had more time, I would make the following improvements to enhance the script’s robustness and usability:
-
-- **Replace Step 22 with a Dynamic Check**: Instead of making Step 22 optional, I’d replace it with an "Evaluate JavaScript" step to check for the top result or "Geen zoekresultaat" message, setting a flag like `window.resultsFound`. This would avoid any failure while providing better control over the script flow.
-- **Parameterize the Search Term**: Use a LoadRunner parameter for the search term (e.g., `SearchTerm`) to easily test different inputs like "warehouse" or "@!?" without modifying the script.
-- **Enhance Error Handling**: Add more checks for DOM elements in JavaScript steps (e.g., Step 28.5, Step 28.7) to handle cases where elements might be missing or the page structure changes.
-- **Add Wait Steps**: Insert additional wait steps (e.g., after Step 21 and Step 28.3) to improve stability, ensuring pages are fully loaded before proceeding.
-
-
 ### Files
 
 - `Action.c`, `vuser_init.c`, `vuser_end.c`: Script files.
