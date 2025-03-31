@@ -108,8 +108,7 @@ This LoadRunner TruClient-Web (Chromium, 2025.1) script automates searching for 
     lr_save_string(result, "randomIndex");
 
     lr_output_message("Random article index (from C): %s", result);
-    return randomIndex;
-}
+    return randomIndex;}
   ```
 - **Called From**: Step 28.6 ("Evaluate C" step), using `articleCount` and saving to `randomIndex`.
 
